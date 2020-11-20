@@ -1,0 +1,71 @@
+Node {      int val;
+            Node lch;
+            Node rch;
+            Node par;
+            int ht;
+  }
+
+//Left skewed
+ balanceleftstline(n1, n2, n3) {
+        p = n1.par;
+        n1.par.lch = n2;
+        n1.lch = n2.rch;
+        n1.par = n2;
+        tmp = n2.rch;
+        n2.rch = n1;
+        n2.par = p;
+
+        tmp.par = n1;
+        tmp1 = n1.lch;
+        tmp2 = n1.par;
+        n1.lch = n2.rch;
+        n1.par = n2;
+        n2.par = tmp2;
+        n2.rch = n1;
+        tmp2.lch = n2;
+        n2.lch.par = n1;
+     }
+//Right skewed
+    public static void balancerightstline(n1, n2, n3) {
+        p = n1.par;
+        n1.par.rch = n2;
+        n1.rch = n2.lch;
+        n1.par = n2;
+        tmp = n2.lch;
+        n2.lch = n1;
+        n2.par = p;
+
+        tmp.par = n1;
+        tmp1 = n1.rch;
+        tmp2 = n1.par;
+        n1.rch = n2.lch;
+        n1.par = n2;
+        n2.par = tmp2;
+        n2.lch = n1;
+        tmp2.rch = n2;
+        n2.lch.par = n1;
+    }
+  //Right-Left formation
+    balancezigzagright( n1, n2, n3 ){
+        n3.par = n2.par;
+        n2.par = n3;
+        n2.lch = n3.rch;
+        n3.rch.par = n2;
+        n3.rch = n2;
+        n1.rch = n3;
+        //Now the zig zag formation has become right straight line. Now the node formation is n1->n3->n2 (right skew)
+
+        balancerightstline(n1,n3,n2);
+    }
+  //Left-Right formation
+    balancezigagleft( n1, n2, n3 ){
+        n3.par = n2.par;
+        n2.par = n3;
+        n2.rch = n3.lch;
+        n3.lch.par = n2;
+        n3.lch = n2;
+        n1.lch = n3;
+        //Now the zig zag formation has become left straight line. Now the node formation is n1->n3->n2 (left skew)
+
+        balanceleftstline(n1,n3,n2);
+    }
